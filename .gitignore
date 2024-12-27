@@ -7,7 +7,8 @@ server/PollingSystem.API/appsettings.json
 
 # Client
 client/polling-client/node_modules
-client/polling-client/.vscode
 client/polling-client/dist
 client/polling-client/.angular/cache/*
 *.log
+
+.vscode
