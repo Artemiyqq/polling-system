@@ -12,5 +12,7 @@ namespace PollingSystem.API.Models
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public ICollection<Poll> Polls { get; set; } = [];
         public ICollection<Vote> Votes { get; set; } = [];
+        public string? PasswordResetToken { get; set; }
+        public DateTime? PasswordResetTokenExpires { get; set; }
     }
 }

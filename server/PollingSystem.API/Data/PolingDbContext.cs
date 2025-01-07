@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PollingSystem.API.Models;
 
-namespace PollingSystem.Api.Data 
+namespace PollingSystem.Api.Data
 {
     public class PollingDbContext : DbContext
     {
@@ -33,7 +33,7 @@ namespace PollingSystem.Api.Data
                 .WithMany(u => u.Polls)
                 .HasForeignKey(p => p.CreatorId)
                 .OnDelete(DeleteBehavior.Restrict);
-            
+
             modelBuilder.Entity<Poll>()
                 .HasIndex(p => p.IsPublic);
 
@@ -41,7 +41,7 @@ namespace PollingSystem.Api.Data
                 .HasOne(o => o.Poll)
                 .WithMany(p => p.Options)
                 .HasForeignKey(o => o.PollId);
-            
+
             modelBuilder.Entity<Vote>()
                 .HasIndex(v => new { v.UserId, v.PollId })
                 .IsUnique();
@@ -49,17 +49,20 @@ namespace PollingSystem.Api.Data
             modelBuilder.Entity<Vote>()
                 .HasOne(v => v.Poll)
                 .WithMany(p => p.Votes)
-                .HasForeignKey(v => v.PollId);
+                .HasForeignKey(v => v.PollId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Vote>()
                 .HasOne(v => v.User)
                 .WithMany(u => u.Votes)
-                .HasForeignKey(v => v.UserId);
+                .HasForeignKey(v => v.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Vote>()
                 .HasOne(v => v.Option)
                 .WithMany(o => o.Votes)
-                .HasForeignKey(v => v.OptionId);
+                .HasForeignKey(v => v.OptionId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
